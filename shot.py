@@ -100,8 +100,8 @@ def processImage(img):
     reload(sys)
 
     YOUDAO_URL = 'https://openapi.youdao.com/ocrapi'
-    APP_KEY = '65a40c4c5873872b'
-    APP_SECRET = 'NhteACJ94q5LQLpQyJErDvZ2u1AL9nP4'
+    APP_KEY = ''
+    APP_SECRET = ''
 
 
     def truncate(q):
@@ -141,13 +141,14 @@ def processImage(img):
         data['sign'] = sign
 
         response = do_request(data)
-        f = json.loads(response.content)
+        res = json.loads(response.content)
         final=''
-        print(len(f['Result']['regions']))
-        for i in range(len(f['Result']['regions'][0]['lines'])):
-            final+=f['Result']['regions'][0]['lines'][i]['text'].encode('utf-8').decode()
+        text = res['Result']['regions'][0]['lines']
+        for i in range(len(text)):
+            final+=text[i]['text'].encode('utf-8').decode()
         print(final)
         pyperclip.copy(final)
+
     connect()
 
 def notify(msg):
