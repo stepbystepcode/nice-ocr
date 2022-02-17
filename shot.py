@@ -147,7 +147,7 @@ def processImage(img):
         for i in range(len(f['Result']['regions'][0]['lines'])):
             final+=f['Result']['regions'][0]['lines'][i]['text'].encode('utf-8').decode()
         print(final)
-
+        pyperclip.copy(final)
     connect()
 
 def notify(msg):
